@@ -1,0 +1,17 @@
+doctype html
+html   
+    head
+        title=pageTitle 
+        style
+            include ./layout.css
+        
+    body 
+        h1 
+            div(class="title")=title
+        div
+            form(method="POST")  
+            label(for="note") Write your note:
+            input(type="text" name="note")
+            input(type="submit") 
+
+    
