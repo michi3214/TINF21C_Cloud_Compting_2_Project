@@ -2,16 +2,34 @@ doctype html
 html   
     head
         title=pageTitle 
+        // Bootstrap
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous")
+
+        // Icons from Bootstrap
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css")
         style
             include ./layout.css
         
     body 
         h1 
             div(class="title")=title
-        div
-            form(method="POST")  
-            label(for="note") Write your note:
-            input(type="text" name="note")
-            input(type="submit") 
+        
+
+        div(class="container")
+            div(class="row")
+                div(class="col-sm")
+                    label(for="note")="Describe your picture: "
+                div(class="col-sm")="Your picture: "
+            div(class="row")
+                div(class="col-sm")
+                    form(method="POST")  
+                        input(type="text" name="pictureDiscription" value=text)
+                        input(type="submit") 
+               
+                div(class="col-sm")
+                    if !picture
+                        span Please enter some text and send it.
+                    else
+                        img(src=picture)
 
     
