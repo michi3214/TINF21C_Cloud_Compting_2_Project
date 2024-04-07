@@ -1,10 +1,15 @@
+variable "project" {
+  type = string
+  default = "ccii-415711"
+}
+
 resource "google_project" "my_project" {
   name       = "Cloud-Computing-2"
-  project_id = "ccii-000001"
+  project_id = "effective-aria-415514"
 }
 
 provider "google" {
-  project = "ccii-000001"
+  project = var.project
   region  = "europe-west1"
   zone    = "europe-west1-b"
 }
@@ -31,7 +36,7 @@ resource "google_compute_instance" "vm_instance" {
 
     queue_count = 0
     stack_type  = "IPV4_ONLY"
-    subnetwork  = "projects/ccii-000001/regions/us-central1/subnetworks/default"
+    subnetwork  = "projects/${project}/regions/us-central1/subnetworks/default"
   }
 
 
