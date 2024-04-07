@@ -8,15 +8,14 @@ WORKDIR /opt/app
 COPY /package.json /package-lock.json ./
 # Copy views
 COPY /views  ./views/
+# Copy env file
+COPY /.env  .
 
 # Install dependancies
 RUN npm install
 
 # Copy source code to container
 COPY /index.js .
-
-# Expose port 3000
-EXPOSE 3000
 
 # Run webserver
 CMD [ "npm", "run", "start"]

@@ -22,12 +22,17 @@ html
                 div(class="col-sm")="Your picture: "
             div(class="row")
                 div(class="col-sm")
-                    form(method="POST")  
-                        input(type="text" name="pictureDiscription" value=text)
-                        input(type="submit") 
+
+                    form(method="POST") 
+                        div 
+                            textarea(name="pictureDiscription" rows="10")!=text
+                        div
+                            input(type="submit") 
                
                 div(class="col-sm")
-                    if !picture
+                    if error 
+                        span Could not fetch data from API. Please try again later. 
+                    else if !picture
                         span Please enter some text and send it.
                     else
                         img(src=picture)

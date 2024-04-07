@@ -1,6 +1,27 @@
 # Dieser Code ist mit Terraform 4.25.0 und Versionen kompatibel, die mit 4.25.0 abwärtskompatibel sind.
 # Informationen zum Validieren dieses Terraform-Codes finden Sie unter https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build#format-and-validate-the-configuration.
 
+variable "project" {
+  type = string
+  default = "ccii-415711"
+}
+
+variable "ssh_Key" {
+  type = string
+  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClbmK2JuJ+9nGkrztTc5t3BnpXue/Mpmsu74Vp7irRl4SUhCbeItysdahnagy4dXrMfZbeFfADkLEQryRh7xsklkQ495NBqhPrcoTVU+aTKzJAm4syc6b3xEC368ci+RLBPUgoTThoeSSA5DaWZTvhswoQw7nANflSNVHZGaM3pyUAdtv7eeQHTfpBjD8v+XRBnVkUPXqmzHd8ogRxr3FtKQJaGpa0Bc/842rIGdv/60UYURF+4IG6MktpE/YTLS7vp5b09IaVprurE3EQpTxhb/a5JrbDTNbEpgUrxof36HKoqFG0E90tRaWvO2qcwgCgzu9yFVtzlX/vszi3C6dr rsa-key-20240219"
+}
+
+variable "username" {
+  type = string
+  default = "r_grote72"
+}
+
+variable "serviceEmail" {
+  type = string
+  default = "968115168757-compute@developer.gserviceaccount.com"
+}
+
+
 terraform {
   required_providers {
     google = {
@@ -11,7 +32,7 @@ terraform {
 }
 
 provider "google" {
-  project = "ccii-415711"
+  project = var.project
   region  = "europe-west1"
   zone    = "europe-west1-b"
 }
@@ -53,7 +74,7 @@ resource "google_compute_instance" "gcp-vm2" {
 
     queue_count = 0
     stack_type  = "IPV4_ONLY"
-    subnetwork  = "projects/ccii-415711/regions/us-central1/subnetworks/default"
+    subnetwork  = "projects/${var.project}/regions/us-central1/subnetworks/default"
   }
 
   scheduling {
@@ -76,5 +97,17 @@ resource "google_compute_instance" "gcp-vm2" {
 
   tags = ["http-server", "https-server"]
   zone = "us-central1-a"
+}
+
+resource "google_sql_database_instance" "main" {
+  name             = "main-instance"
+  database_version = "POSTGRES_15"
+  region           = "us-central1"
+
+  settings {
+    # Second-generation instance tiers are based on the machine
+    # type. See argument reference below.
+    tier = "db-f1-micro"
+  }
 }
 
