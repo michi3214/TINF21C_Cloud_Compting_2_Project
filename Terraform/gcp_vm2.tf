@@ -92,11 +92,11 @@ resource "google_sql_database_instance" "main" {
 }
 
 output "sql_ip_addr" {
-  value       = google_sql_database_instance.main.private_ip_address # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
-  description = "The private IP address of the sql server instance."
+  value       = google_sql_database_instance.main.public_ip_address # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
+  description = "The public IP address of the sql server instance."
 }
 
 output "webserver_ip_addr" {
-  value       = google_compute_instance.gcp-vm2.network_interface.0.network_ip # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
-  description = "The private IP address of the webserver instance."
+  value       = google_compute_instance.gcp-vm2.network_interface.0.access_config.0.nat_ip # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
+  description = "The public IP address of the webserver instance."
 }
