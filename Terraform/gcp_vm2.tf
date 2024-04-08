@@ -1,6 +1,6 @@
 variable "project" {
   type = string
-  default = "ccii-415711"
+  default = "effective-aria-415514"
 }
 
 terraform {
