@@ -97,6 +97,6 @@ output "sql_ip_addr" {
 }
 
 output "webserver_ip_addr" {
-  value       = google_compute_instance.gcp-vm2.private_ip_address # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
+  value       = google_compute_instance.gcp-vm2.network_interface.0.network_ip # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
   description = "The private IP address of the webserver instance."
 }
