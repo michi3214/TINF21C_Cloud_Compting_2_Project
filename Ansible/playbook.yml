@@ -4,7 +4,7 @@
 
   vars:
     default_container_name: docker
-    default_container_image: ubuntu
+    default_container_image: michi321321/ccp_webserver
     arch_mapping:  # Map ansible architecture {{ ansible_architecture }} names to Docker's architecture names
       x86_64: amd64
       aarch64: arm64
@@ -94,4 +94,3 @@
         image: "{{ default_container_image }}"
         command: "{{ default_container_command }}"
         state: present
-      with_sequence: count={{ container_count }}

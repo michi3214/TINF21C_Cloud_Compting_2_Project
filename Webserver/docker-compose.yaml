@@ -7,7 +7,7 @@ networks:
 
 services:
   srv_webserver:
-    image: ccp/srv_webserver
+    image: michi321321/ccp_webserver
     hostname: srv_webserver
     container_name: srv_webserver
     restart: unless-stopped
