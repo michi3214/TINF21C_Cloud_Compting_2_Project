@@ -34,7 +34,7 @@
 
     - name: Add Docker's official GPG key
       ansible.builtin.apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
+        url: https://download.docker.com/linux/debian/gpg
         keyring: /etc/apt/keyrings/docker.gpg
         state: present
 
@@ -47,7 +47,7 @@
         repo: >-
           deb [arch={{ arch_mapping[ansible_architecture] | default(ansible_architecture) }}
           signed-by=/etc/apt/keyrings/docker.gpg]
-          https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+          https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
         filename: docker
         state: present
 
