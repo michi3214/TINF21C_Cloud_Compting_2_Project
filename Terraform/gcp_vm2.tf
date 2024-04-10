@@ -42,7 +42,8 @@ resource "google_compute_instance" "gcp-vm2" {
   machine_type = "e2-micro"
 
   metadata = {
-    ssh-keys = "r_grote72:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClbmK2JuJ+9nGkrztTc5t3BnpXue/Mpmsu74Vp7irRl4SUhCbeItysdahnagy4dXrMfZbeFfADkLEQryRh7xsklkQ495NBqhPrcoTVU+aTKzJAm4syc6b3xEC368ci+RLBPUgoTThoeSSA5DaWZTvhswoQw7nANflSNVHZGaM3pyUAdtv7eeQHTfpBjD8v+XRBnVkUPXqmzHd8ogRxr3FtKQJaGpa0Bc/842rIGdv/60UYURF+4IG6MktpE/YTLS7vp5b09IaVprurE3EQpTxhb/a5JrbDTNbEpgUrxof36HKoqFG0E90tRaWvO2qcwgCgzu9yFVtzlX/vszi3C6dr rsa-key-20240219"
+    ssh-keys = "r_grote72:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCndZzbrS3iAcFlrITaP8nVURwH7QwkWA3Cx/d+gzFNI7OiLe8u+EDR4L183Ltiyj1L65RssMOUqB86AaLC8Ts2jg8iGvna6tPpKVheJIusRFUiAk1ZKadfqH0M6jtgfX6YQYixlx3DjYmjDcf7ZJ8sQz7XZVHrdIfKBEY3sbQCA4AA3uLCeNxisuPjcIoMYuXquwLoXImnHyuvpc8UoGgHlz8WmE2gv23Kj2LNgLFNbOlBNATD1teoLwNP6X5iqirHZbVa2KApxUW9rjBPXljjk0dt7GSNqqoMiDgdlujY6ygoFBujRWYRYUc+aa+7qZQ7uh6c4It3UbXYU8EgYvIZKEPptdjjfiNAQeELpAzfk2u/UyO6tHRNwLe7thNxZwLA6RRHfFEfZcz4l+zyRjtifxdO6v7EN52aCeYHNGVO5MWPgzzSVu5PaDmLnjHr6kHXb96pbtxVNpuUFlz2gJOLEK0HRserGfoj7dfA2gi6XQcqyiq6FBtmnUSk6Mr1SEM="
+                          
   }
 
   name = "gcp-vm2"
