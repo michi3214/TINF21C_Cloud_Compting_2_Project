@@ -88,8 +88,10 @@
         name: "{{ default_container_image }}"
         source: pull
 
-    - name: Create default containers
-      community.docker.docker_container:
-        name: "{{ default_container_name }}"
+    - name: Starting {{ default_container_image }} image
+      docker_container:
+        name: "{{ default_container_image }}"
+        state: started
         image: "{{ default_container_image }}"
-        state: present
+        ports:
+          - "80:80"
