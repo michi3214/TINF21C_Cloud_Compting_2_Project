@@ -89,7 +89,7 @@
         source: pull
 
 
-     - name: Copy env file to server 
+    - name: Copy env file to server 
       ansible.builtin.copy:
         src: /home/r_grote72/.env
         dest: /home/r_grote72/.env
