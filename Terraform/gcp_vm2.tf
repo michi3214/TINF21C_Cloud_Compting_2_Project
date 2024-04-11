@@ -92,6 +92,12 @@ resource "google_sql_database_instance" "main" {
   }
 }
 
+resource "google_sql_user" "users" {
+  name     = "webserver-cloud-computing"
+  instance = google_sql_database_instance.main.name
+  password = "postgresPasswordCloudComputing"
+}
+
 output "sql_ip_addr" {
   value       = google_sql_database_instance.main.public_ip_address # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
   description = "The public IP address of the sql server instance."
