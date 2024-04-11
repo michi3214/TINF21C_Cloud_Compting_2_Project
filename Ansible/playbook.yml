@@ -88,17 +88,22 @@
         name: "{{ default_container_image }}"
         source: pull
 
-    - name: Starting {{ default_container_image }} image
-      docker_container:
-        name: "webserver"
-        state: started
-        image: "{{ default_container_image }}"
-        ports:
-          - "80:80"
-    
-    - name: Copy env file 
+
+     - name: Copy env file to server 
       ansible.builtin.copy:
         src: /home/r_grote72/.env
         dest: /home/r_grote72/.env
         owner: r_grote72
         group: r_grote72
+
+
+    - name: Starting {{ default_container_image }} image
+      docker_container:
+        name: "webserver"
+        env_file: /home/r_grote72/.env
+        state: started
+        image: "{{ default_container_image }}"
+        ports:
+          - "80:80"
+    
+   
