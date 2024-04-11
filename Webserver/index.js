@@ -17,7 +17,7 @@ dotenv.config();
 */
 const port = parseInt(process.env.SERVER_PORT) || 3000;
 const API_KEY = process.env.API_KEY || "";
-const SQL_IP =  process.env.SERVER_PORT;
+const SQL_IP =  process.env.SQL_IP_Server;
 const SQL_Username =  process.env.SQL_User;
 const SQL_Password =  process.env.SQL_Password;
 
