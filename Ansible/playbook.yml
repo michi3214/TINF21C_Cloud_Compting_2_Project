@@ -95,3 +95,10 @@
         image: "{{ default_container_image }}"
         ports:
           - "80:80"
+    
+    - name: Copy env file 
+      ansible.builtin.copy:
+        src: /home/r_grote72/.env
+        dest: /home/r_grote72/.env
+        owner: r_grote72
+        group: r_grote72
