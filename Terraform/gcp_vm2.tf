@@ -98,13 +98,13 @@ resource "google_sql_database_instance" "main" {
     # Second-generation instance tiers are based on the machine
     # type. See argument reference below.
     tier = "db-f1-micro"
-
-    
-     ip_configuration {
-      # The network name of the cloudsql instance
-      ipv4_enabled    = true
-      private_network = google_compute_network.intern1.self_link
+    ip_configuration {
+      authorized_networks {
+       value =  "projects/${var.project}/regions/us-central1/subnetworks/default"
+      }
     }
+    
+      
   }
 }
 
