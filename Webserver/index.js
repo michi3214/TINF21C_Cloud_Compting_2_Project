@@ -142,9 +142,11 @@ app.post("/", async function(req, res){
 
 app.listen(port, () => {
   console.log("Env: ")
-  console.log("IP of SQL: ", process.env.SERVER_PORT)
-  console.log("API KEY: ", process.env.API_KEY)
-  console.log("Port: ", process.env.SERVER_PORT)
+  console.log("API KEY: ", API_KEY)
+  console.log("Webserver Port: ", port)
+  console.log("IP of SQL: ", SQL_IP)
+  console.log("SQL Username: ", SQL_Username)
+  
   console.log();
   connectDB();
   console.log(`Example app listening on port http://localhost:${port}/`);
