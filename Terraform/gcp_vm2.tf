@@ -90,8 +90,11 @@ resource "google_sql_database_instance" "main" {
     # type. See argument reference below.
     tier = "db-f1-micro"
 
-    ip_configuration {
-      ipv4_enabled    = true        # don't give the db a public IPv4
+    
+     ip_configuration {
+      # The network name of the cloudsql instance
+      ipv4_enabled    = true
+      private_network = google_compute_network.default.self_link
     }
   }
 }
