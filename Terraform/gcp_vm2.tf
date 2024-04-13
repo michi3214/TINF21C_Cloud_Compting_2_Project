@@ -12,12 +12,6 @@ terraform {
   }
 }
 
-# Google compute network for the database
-resource "google_compute_network" "intern1" {
-  name                    = "intern1"
-  auto_create_subnetworks = true
-}
-
 provider "google" {
   project = var.project
   region  = "europe-west1"
@@ -62,9 +56,6 @@ resource "google_compute_instance" "gcp-vm2" {
     queue_count = 0
     stack_type  = "IPV4_ONLY"
     subnetwork  = "projects/${var.project}/regions/us-central1/subnetworks/default"
-  }
-  network_interface {
-    network = google_compute_network.intern1.self_link
   }
 
   scheduling {
