@@ -61,7 +61,10 @@ resource "google_compute_instance" "gcp-vm2" {
 
     queue_count = 0
     stack_type  = "IPV4_ONLY"
-    subnetwork  = google_compute_network.intern1.self_link
+    subnetwork  = "projects/${var.project}/regions/us-central1/subnetworks/default"
+  }
+  network_interface {
+    network = google_compute_network.intern1.self_link
   }
 
   scheduling {
