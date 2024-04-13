@@ -82,11 +82,6 @@
       loop:
         - docker.service
         - containerd.service
-    
-    - name: Pull default Docker image
-      community.docker.docker_image:
-        name: "{{ default_container_image }}"
-        source: pull
 
 
     - name: Copy env file to server 
@@ -103,6 +98,7 @@
         env_file: /home/r_grote72/.env
         state: started
         image: "{{ default_container_image }}"
+        pull: always 
         ports:
           - "80:80"
     
