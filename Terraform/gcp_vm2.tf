@@ -13,8 +13,8 @@ terraform {
 }
 
 # Google compute network for the database
-resource "google_compute_network" "default" {
-  name                    = "default"
+resource "google_compute_network" "intern1" {
+  name                    = "intern1"
   auto_create_subnetworks = true
 }
 
@@ -61,7 +61,7 @@ resource "google_compute_instance" "gcp-vm2" {
 
     queue_count = 0
     stack_type  = "IPV4_ONLY"
-    subnetwork  = google_compute_network.default.self_link
+    subnetwork  = google_compute_network.intern1.self_link
   }
 
   scheduling {
@@ -100,7 +100,7 @@ resource "google_sql_database_instance" "main" {
      ip_configuration {
       # The network name of the cloudsql instance
       ipv4_enabled    = true
-      private_network = google_compute_network.default.self_link
+      private_network = google_compute_network.intern1.self_link
     }
   }
 }
