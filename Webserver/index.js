@@ -30,6 +30,13 @@ if(API_KEY === ""){
 }
 
 
+console.log("Env: ")
+console.log("API KEY: ", API_KEY)
+console.log("Webserver Port: ", port)
+console.log("IP of SQL: ", SQL_IP)
+console.log("SQL Username: ", SQL_Username)
+
+
 /*
 ############################
 ############################
@@ -55,7 +62,8 @@ async function createNewPhoto(description){
     console.log("Could not create new image! Status: " + response.status);
     throw new Error("Could not create new image!")
   }
-  console.log("Status: ", response.status)
+  console.log("Got photo from AI. Status: ", response.status)
+  writePicToDB(description, response.data.replicate.items[0].image);
   return response.data.replicate.items[0].image; 
 }
 
@@ -90,7 +98,7 @@ async function readPicFromDB(){
   return ""
 }
 
-async function writePicToDB(){
+async function writePicToDB(text, picture){
   return ""
 }
 
@@ -141,11 +149,6 @@ app.post("/", async function(req, res){
 })
 
 app.listen(port, async () => {
-  console.log("Env: ")
-  console.log("API KEY: ", API_KEY)
-  console.log("Webserver Port: ", port)
-  console.log("IP of SQL: ", SQL_IP)
-  console.log("SQL Username: ", SQL_Username)
 
   console.log();
   await connectDB();
