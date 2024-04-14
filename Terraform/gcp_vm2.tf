@@ -91,7 +91,7 @@ resource "google_sql_database_instance" "main" {
     tier = "db-f1-micro"
     ip_configuration {
       authorized_networks {
-       value =  google_compute_instance.gcp-vm2.network_interface.0.network_ip
+       value =  google_compute_instance.gcp-vm2.network_interface.0.access_config.0.nat_ip
       }
     }
     
