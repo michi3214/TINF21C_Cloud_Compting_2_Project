@@ -20,6 +20,8 @@ const API_KEY = process.env.API_KEY || "";
 const SQL_IP =  process.env.SQL_IP_Server;
 const SQL_Username =  process.env.SQL_User;
 const SQL_Password =  process.env.SQL_Password;
+const SQL_DatabaseName =  process.env.SQL_DatabaseName;
+const SQL_TableName =  process.env.SQL_TableName;
 
 if(API_KEY === ""){
   console.log("Could not find an api key for eden in .env file.");
@@ -35,6 +37,8 @@ console.log("API KEY: ", API_KEY)
 console.log("Webserver Port: ", port)
 console.log("IP of SQL: ", SQL_IP)
 console.log("SQL Username: ", SQL_Username)
+console.log("SQL DatabaseName: ", SQL_DatabaseName)
+console.log("SQL Table Name: ", SQL_TableName)
 
 
 /*
@@ -80,8 +84,10 @@ async function createNewPhoto(description){
 const client = new Client({
 	user: SQL_Username,
 	password: SQL_Password,
-	host: SQL_IP
+	host: SQL_IP,
+  database:SQL_DatabaseName,
 });
+
 
 
 async function connectDB(){
