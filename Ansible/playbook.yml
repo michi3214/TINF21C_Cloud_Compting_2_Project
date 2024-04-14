@@ -92,8 +92,8 @@
         group: r_grote72
 
 
-    - name: Starting {{ default_container_image }} image
-      docker_container:
+    - name: Start Docker container
+      community.docker.docker_container:
         name: "webserver"
         env_file: /home/r_grote72/.env
         state: started
