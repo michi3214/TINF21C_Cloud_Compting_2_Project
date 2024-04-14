@@ -115,7 +115,7 @@ output "webserver_ip_addr" {
   description = "The public IP address of the webserver instance."
 }
 
-output "webserver_ip_addr" {
+output "webserver_intern_ip_addr" {
   value       = google_compute_instance.gcp-vm2.network_interface.0.network_ip # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
   description = "The privat IP address of the webserver instance."
 }
