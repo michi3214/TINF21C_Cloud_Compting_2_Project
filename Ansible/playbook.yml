@@ -68,8 +68,6 @@
         name: docker
         state: present
 
-    
-
     - name: Enable and start Docker services
       ansible.builtin.systemd:
         name: "{{ item }}"
@@ -79,12 +77,11 @@
         - docker.service
         - containerd.service
 
-
     - name: Add user to Docker group
-          ansible.builtin.user:
-            name: "{{ ansible_user }}"
-            groups: docker
-            append: true
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: true
 
     - name: Copy env file to server 
       ansible.builtin.copy:
@@ -92,7 +89,6 @@
         dest: /home/r_grote72/.env
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
-
 
     - name: Start Docker container
       community.docker.docker_container:
