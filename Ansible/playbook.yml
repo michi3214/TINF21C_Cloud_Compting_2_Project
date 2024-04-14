@@ -68,11 +68,7 @@
         name: docker
         state: present
 
-    - name: Add user to Docker group
-      ansible.builtin.user:
-        name: "r_grote72"
-        groups: docker
-        append: true
+    
 
     - name: Enable and start Docker services
       ansible.builtin.systemd:
@@ -84,12 +80,18 @@
         - containerd.service
 
 
+    - name: Add user to Docker group
+          ansible.builtin.user:
+            name: "{{ ansible_user }}"
+            groups: docker
+            append: true
+
     - name: Copy env file to server 
       ansible.builtin.copy:
         src: /home/r_grote72/.env
         dest: /home/r_grote72/.env
-        owner: r_grote72
-        group: r_grote72
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
 
 
     - name: Start Docker container
@@ -99,6 +101,7 @@
         state: started
         image: "{{ default_container_image }}"
         pull: true 
+        restart_policy: always
         ports:
           - "80:80"
     
