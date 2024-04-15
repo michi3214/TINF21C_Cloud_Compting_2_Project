@@ -21,7 +21,7 @@
 
     - name: Install psycopg2 package
       apt:
-        name: python-psycopg2
+        name:  python3-psycopg2
 
     - name: Create picturesDB database
       community.postgresql.postgresql_db:
