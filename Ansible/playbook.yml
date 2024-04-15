@@ -9,10 +9,6 @@
     sql_ip: 104.197.65.50
 
   tasks:
-    - name: Update apt packages
-      apt:
-        update_cache: yes
-
     - name: Install Python
       apt:
         name: python3
