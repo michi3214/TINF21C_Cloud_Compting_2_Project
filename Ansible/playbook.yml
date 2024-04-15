@@ -6,7 +6,6 @@
     sql_ip:  <sql_ip>
     sql_user: <sql_username>
     sql_password: <sql_password>
-    env_file_position: /home/r_grote72/.env
     sql_databasename: picturesDB
     sql_tablename: pictures
 
@@ -52,6 +51,7 @@
   vars:
     default_container_name: ccp_webserver
     default_container_image: michi321321/ccp_webserver
+    env_file_position: /home/r_grote72/.env
     arch_mapping:  
       x86_64: amd64
       aarch64: arm64
@@ -132,15 +132,15 @@
 
     - name: Copy env file to server 
       ansible.builtin.copy:
-        src: "{{env_file_position}}"
-        dest: "{{env_file_position}}"
+        src: "{{ env_file_position }}"
+        dest: "{{ env_file_position }}"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
 
     - name: Start Docker container
       community.docker.docker_container:
         name: "webserver"
-        env_file: "{{env_file_position}}"
+        env_file: "{{ env_file_position }}"
         state: started
         image: "{{ default_container_image }}"
         pull: true 

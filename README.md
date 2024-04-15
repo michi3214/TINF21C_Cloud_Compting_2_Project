@@ -25,4 +25,4 @@ SQL_TableName=pictures
 
 Nun muss noch das Playbook angepasst werden. Hier muss die öffentliche IP der SQL Datenbank, sowie die Zugangsdaten zur Datenbank eingetragen werden. Des Weiteren wird noch die Pfad zur .env Datei benötigt. 
 
-Im Anschluss kann auch das Ansible Skript ausgeführt werden. Danach ist die Erstellung und Konfiguration der Ressourcen abgeschlossen.  
+Im Anschluss kann auch das Ansible Skript ausgeführt werden. Hierzu muss noch die IP der VM in die Inventory Datei eingefügt werden. Danach ist die Erstellung und Konfiguration der Ressourcen abgeschlossen.  
