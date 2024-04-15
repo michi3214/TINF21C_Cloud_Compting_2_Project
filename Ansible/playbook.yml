@@ -8,6 +8,26 @@
     sql_ip: 104.197.65.50
 
   tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+
+    - name: Install Python
+      apt:
+        name: python3
+        state: present
+
+    - name: Install pip for Python 3
+      apt:
+        name: python3-pip
+        state: present
+        
+    - name: Install psycopg2 package
+      pip:
+        name: psycopg2-binary
+        state: present
+        executable: pip3
+
     - name: Create picturesDB database
       community.postgresql.postgresql_db:
         name: "{{sql_databasename}}"
