@@ -32,13 +32,12 @@
         login_host: "{{sql_ip}}"
 
     - name: Create pictures table
-      community.postgresql.postgresql_query:
+      community.postgresql.postgresql_table:
         db: "{{sql_databasename}}"
-        query: |
-          CREATE TABLE {{sql_tablename}} (
-              description VARCHAR(255),
-              picture TEXT
-          );
+        table: "{{sql_tablename}}"
+        columns:
+        - description VARCHAR(255) primary key
+        - picture text
         login_user: "{{sql_user}}"
         login_password: postgresPasswordCloudComputing
         login_host: "{{sql_ip}}"

@@ -3,8 +3,10 @@ const express = require('express');
 const path = require("path");
 const axios = require("axios").default;
 const { Client } = require('pg');
+const crypto = require('crypto')
 
 let DBClient;
+const hashFunction = crypto.createHash("sha256")
 // Load global config from .env file
 dotenv.config();
 
@@ -67,7 +69,6 @@ async function createNewPhoto(description){
     throw new Error("Could not create new image!")
   }
   console.log("Got photo from AI. Status: ", response.status)
-  writePicToDB(description, response.data.replicate.items[0].image);
   return response.data.replicate.items[0].image; 
 }
 
@@ -100,12 +101,21 @@ async function connectDB(){
   }
 }
 
-async function readPicFromDB(){
-  return ""
+async function readPicFromDB(descriptionHash){
+  const res = await client.query('SELECT * FROM $1 WHERE description = $2', [SQL_TableName,descriptionHash])
+  console.debug(res.rows)
+  console.log(res.rows[0].picture)
+  return res.rows[0].picture
 }
 
 async function writePicToDB(text, picture){
-  return ""
+  const query = {
+    text: 'INSERT INTO $1(description, picture) VALUES($1, $2)',
+    values: [text, picture],
+  }
+   
+  const res = await client.query(query)
+  console.log("Added data to database: ", res.rows[0])
 }
 
 /*
@@ -141,9 +151,15 @@ app.post("/", async function(req, res){
   const description = req.body.pictureDiscription;
   console.log("Description: ",description)
   try {
+    hashDescription = hashFunction.update(description).digest('hex');
+    console.log("Hashed description to ", hashDescription);
+    const db_res = await readPicFromDB(hashDescription);
+
+
     const picture = await createNewPhoto(description);
+    writePicToDB(hashDescription, picture);
     res.render("index", {title:title, pageTitle:pageTitel, text:description, picture: "data:image/png;base64," + picture});
-    console.log("Send picture")
+    console.log("Send picture for ", description)
 
   } catch (error) {
     res.status(500).render("index", {title:title, pageTitle:pageTitel, text:description, picture:"", error:true})
