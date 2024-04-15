@@ -3,6 +3,16 @@ variable "project" {
   default = "effective-aria-415514"
 }
 
+variable "sql_username" {
+  type = string
+  default = "webserver-cloud-computing"
+}
+
+variable "sql_password" {
+  type = string
+  default = "postgresPasswordCloudComputing"
+}
+
 terraform {
   required_providers {
     google = {
@@ -113,9 +123,9 @@ resource "google_sql_database_instance" "main" {
 }
 
 resource "google_sql_user" "users" {
-  name     = "webserver-cloud-computing"
+  name     = "${var.sql_username}"
   instance = google_sql_database_instance.main.name
-  password = "postgresPasswordCloudComputing"
+  password = "${var.sql_password}"
 }
 
 output "sql_ip_addr" {

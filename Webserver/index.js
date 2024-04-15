@@ -103,7 +103,6 @@ async function connectDB(){
 async function readPicFromDB(descriptionHash){
   console.log("Looking into the DB")
   const res = await client.query("SELECT * FROM "+SQL_TableName+" WHERE description = $1", [descriptionHash])
-  console.debug(res.rows)
   if(!res.rowCount || res.rowCount === 0){
     console.log("Could not found any image in database.")
     return undefined
