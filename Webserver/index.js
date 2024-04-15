@@ -6,7 +6,6 @@ const { Client } = require('pg');
 const crypto = require('crypto')
 
 let DBClient;
-const hashFunction = crypto.createHash("sha256")
 // Load global config from .env file
 dotenv.config();
 
@@ -102,20 +101,26 @@ async function connectDB(){
 }
 
 async function readPicFromDB(descriptionHash){
-  const res = await client.query('SELECT * FROM $1 WHERE description = $2', [SQL_TableName,descriptionHash])
+  console.log("Looking into the DB")
+  const res = await client.query("SELECT * FROM "+SQL_TableName+" WHERE description = $1", [descriptionHash])
   console.debug(res.rows)
-  console.log(res.rows[0].picture)
+  if(!res.rowCount || res.rowCount === 0){
+    console.log("Could not found any image in database.")
+    return undefined
+  }
+  
+  console.log("Foud this in db: ",res.rows[0].picture)
   return res.rows[0].picture
 }
 
 async function writePicToDB(text, picture){
   const query = {
-    text: 'INSERT INTO $1(description, picture) VALUES($1, $2)',
+    text: "INSERT INTO "+SQL_TableName+"(description, picture) VALUES($1, $2)",
     values: [text, picture],
   }
    
   const res = await client.query(query)
-  console.log("Added data to database: ", res.rows[0])
+  console.log("Added data to database.")
 }
 
 /*
@@ -151,14 +156,21 @@ app.post("/", async function(req, res){
   const description = req.body.pictureDiscription;
   console.log("Description: ",description)
   try {
-    hashDescription = hashFunction.update(description).digest('hex');
+    hashDescription =  crypto.createHash("sha256").update(description).digest('hex');
     console.log("Hashed description to ", hashDescription);
     const db_res = await readPicFromDB(hashDescription);
 
+    if(db_res === undefined){
+      const picture = await createNewPhoto(description);
+      writePicToDB(hashDescription, picture);
+      console.log("Send new picture.")
+      res.render("index", {title:title, pageTitle:pageTitel, text:description, picture: "data:image/png;base64," + picture});
 
-    const picture = await createNewPhoto(description);
-    writePicToDB(hashDescription, picture);
-    res.render("index", {title:title, pageTitle:pageTitel, text:description, picture: "data:image/png;base64," + picture});
+    }else{
+      console.log("Send picture from database.")
+      res.render("index", {title:title, pageTitle:pageTitel, text:description, picture: "data:image/png;base64," + db_res});
+
+    }
     console.log("Send picture for ", description)
 
   } catch (error) {
