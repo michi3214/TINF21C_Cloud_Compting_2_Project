@@ -1,36 +1,33 @@
 ---
 - name: Provision GCP resources and configure SQL database
   hosts: localhost
-  gather_facts: no
   vars:
     sql_user: webserver-cloud-computing
     sql_databasename: picturesDB
     sql_tablename: pictures
     sql_ip: 104.197.65.50
-    
 
   tasks:
-    - name: Create database
-      community.mysql.mysql_db:
-        name: picturesDB
+    - name: Create picturesDB database
+      community.postgresql.postgresql_db:
+        name: "{{sql_databasename}}"
         state: present
-        login_user: "{{ sql_user }}"
+        login_user: "{{sql_user}}"
         login_password: postgresPasswordCloudComputing
-        login_host: "{{ sql_ip }}"
+        login_host: "{{sql_ip}}"
 
-    - name: Create table
-      community.mysql.mysql_table:
-        db: "{{ sql_ip }}"
-        name: "{{ sql_databasename }}"
-        state: present
-        login_user: "{{ sql_user }}"
+    - name: Create pictures table
+      community.postgresql.postgresql_query:
+        db: "{{sql_databasename}}"
+        query: |
+          CREATE TABLE {{sql_tablename}} (
+              description VARCHAR(255),
+              picture TEXT
+          );
+        login_user: "{{sql_user}}"
         login_password: postgresPasswordCloudComputing
-        login_host: "{{ sql_ip }}"
-        columns:
-          - name: description
-            type: VARCHAR(255)
-          - name: picture
-            type: TEXT
+        login_host: "{{sql_ip}}"
+
 
 - name: Provision GCP VM and install Docker
   hosts: remote-hosts
