@@ -83,6 +83,7 @@ resource "google_compute_instance" "gcp-vm2" {
 
 data "google_compute_instance" "vm_instance" {
   name         = "gcp-vm1"
+  zone         = "us-central1-a"
 }
 
 
