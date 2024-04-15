@@ -80,6 +80,13 @@ resource "google_compute_instance" "gcp-vm2" {
   zone = "us-central1-a"
 }
 
+
+data "google_compute_instance" "vm_instance" {
+  name         = "gcp-vm1"
+}
+
+
+
 resource "google_sql_database_instance" "main" {
   name             = "main-instance"
   database_version = "POSTGRES_15"
@@ -91,7 +98,12 @@ resource "google_sql_database_instance" "main" {
     tier = "db-f1-micro"
     ip_configuration {
       authorized_networks {
-       value =  google_compute_instance.gcp-vm2.network_interface.0.access_config.0.nat_ip
+        name="VM-2"
+        value =  google_compute_instance.gcp-vm2.network_interface.0.access_config.0.nat_ip
+      }
+      authorized_networks {
+       name="VM-1"
+       value =  data.google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
       }
     }
     
@@ -118,4 +130,9 @@ output "webserver_ip_addr" {
 output "webserver_intern_ip_addr" {
   value       = google_compute_instance.gcp-vm2.network_interface.0.network_ip # <RESOURCE TYPE>.<NAME>.<ATTRIBUTE>
   description = "The privat IP address of the webserver instance."
+}
+
+output "public_ip_vm1" {
+  value = data.google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip
+  description = "The public IP address of the vm1 (host system)."
 }
