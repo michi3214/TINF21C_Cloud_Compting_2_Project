@@ -1,6 +1,7 @@
 ---
 - name: Provision GCP resources and configure SQL database
   hosts: localhost
+  become: true 
   vars:
     sql_user: webserver-cloud-computing
     sql_databasename: picturesDB
@@ -21,7 +22,7 @@
       apt:
         name: python3-pip
         state: present
-        
+
     - name: Install psycopg2 package
       pip:
         name: psycopg2-binary
