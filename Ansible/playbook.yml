@@ -20,10 +20,8 @@
         state: present
 
     - name: Install psycopg2 package
-      pip:
-        name: psycopg2-binary
-        state: present
-        executable: pip3
+      apt:
+        name: python-psycopg2
 
     - name: Create picturesDB database
       community.postgresql.postgresql_db:
