@@ -3,12 +3,12 @@
   hosts: localhost
   become: true 
   vars:
-    sql_user: webserver-cloud-computing
+    sql_ip:  <sql_ip>
+    sql_user: <sql_username>
+    sql_password: <sql_password>
+    env_file_position: /home/r_grote72/.env
     sql_databasename: picturesDB
     sql_tablename: pictures
-    sql_ip: 104.197.65.50
-    sql_password: postgresPasswordCloudComputing
-    env_file_position: /home/r_grote72/.env
 
   tasks:
     - name: Install Python
