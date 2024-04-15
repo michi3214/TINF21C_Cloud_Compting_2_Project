@@ -5,12 +5,10 @@ variable "project" {
 
 variable "sql_username" {
   type = string
-  default = "webserver-cloud-computing"
 }
 
 variable "sql_password" {
   type = string
-  default = "postgresPasswordCloudComputing"
 }
 
 terraform {
